@@ -1,10 +1,6 @@
-<h1 align="left">
-    <img src="https://readme-typing-svg.herokuapp.com/?font=Righteous&size=35&color=F7AA00&center=false&vCenter=true&width=800&height=70&duration=4000&pause=500&lines=⚡+Welcome+to+My+Repository+⚡;+Game+Socket+dan+Protokol+UDP+😁;"/>
-</h1>
-
 ```
-Nama : Okky Rangga Pratama
-NIM : 1203220011
+Nama : Ferry Oktariansyah
+NIM : 1203220006
 Kelas : IF-02-01
 ```
 
@@ -13,11 +9,13 @@ Kelas : IF-02-01
 ## Daftar Isi
 
 ### - [Alur Kode](#alur-kode)
+
 ### - [Penggunaan](#Penggunaan)
 
 <hr>
 
 ## Soal
+
 Buatlah sebuah permainan yang menggunakan soket dan protokol UDP. Permainannya cukup sederhana, dengan 1 server dapat melayani banyak klien (one-to-many). Setiap 10 detik, server akan mengirimkan kata warna acak dalam bahasa Inggris kepada semua klien yang terhubung. Setiap klien harus menerima kata yang berbeda (unik). Selanjutnya, klien memiliki waktu 5 detik untuk merespons dengan kata warna dalam bahasa Indonesia. Setelah itu, server akan memberikan nilai feedback 0 jika jawabannya salah dan 100 jika benar.
 
 <br>
@@ -76,7 +74,7 @@ server_socket.close()
 
 **Output :**
 
-![alt text](assets/server.png)
+![alt text](image/server.png)
 
 **Penjelasan :**
 
@@ -187,7 +185,7 @@ client_socket.close()
 
 **Output :**
 
-![alt text](assets/client.png)
+![alt text](image/client.png)
 
 **Penjelasan :**
 
@@ -227,9 +225,10 @@ Untuk menggunakan cara ini harus menjalankan 2 file yaitu `server.py` dan `clien
 ```
 > python server.py
 ```
+
 <br>
 
-![alt text](assets/server.png)
+![alt text](image/server.png)
 
 ```
 > python client.py
@@ -237,16 +236,15 @@ Untuk menggunakan cara ini harus menjalankan 2 file yaitu `server.py` dan `clien
 
 <br>
 
-![alt text](assets/client.png)
+![alt text](image/client.png)
 
 > Keterangan
-> 
+>
 > - Jika Menebak warna dengan Benar maka akan mendapatkan nilai feedback 100
 > - Jika menebak warna dengan Salah maka akan mendapatkan nilai feedback 0
 > - Jika tidak menginputkan apapun maka akan muncul anda tidak menjawab dalam 5 detik dan tekan enter untuk melanjutkan
 >
 > Server akan memberikan warna baru kepada client setiap 10 detik jika menjawab dengan benar/salah/tidak menjawab
-
 
 ### Menggunakan 1 Server dan Banyak Client
 
@@ -256,10 +254,10 @@ Untuk menggunakan cara ini cukup menjalankan script `run.py`
 > python run.py
 ```
 
-![alt text](assets/all.png)
+![alt text](image/run.png)
 
 > Keterangan
-> 
+>
 > - Jika Menebak warna dengan Benar maka akan mendapatkan nilai feedback 100
 > - Jika menebak warna dengan Salah maka akan mendapatkan nilai feedback 0
 > - Jika tidak menginputkan apapun maka akan muncul anda tidak menjawab dalam 5 detik dan tekan enter untuk melanjutkan
