@@ -1,31 +1,26 @@
-```
-Nama : Ferry Oktariansyah
-NIM : 1203220006
-Kelas : IF-02-01
-```
+Nama: Ferry Oktariansyah
+NIM: 1203220006
+Kelas: IF-02-01
 
-<hr>
+---
 
-## Daftar Isi
+### \* [Alur Berjalannya Kode Program](#alur-kode)
 
-### - [Alur Kode](#alur-kode)
+### \* [Penggunaan Proggram](#Penggunaan)
 
-### - [Penggunaan](#Penggunaan)
-
-<hr>
+---
 
 ## Soal
 
 Buatlah sebuah permainan yang menggunakan soket dan protokol UDP. Permainannya cukup sederhana, dengan 1 server dapat melayani banyak klien (one-to-many). Setiap 10 detik, server akan mengirimkan kata warna acak dalam bahasa Inggris kepada semua klien yang terhubung. Setiap klien harus menerima kata yang berbeda (unik). Selanjutnya, klien memiliki waktu 5 detik untuk merespons dengan kata warna dalam bahasa Indonesia. Setelah itu, server akan memberikan nilai feedback 0 jika jawabannya salah dan 100 jika benar.
 
-<br>
-<hr>
+## <br>
 
 ## Alur Kode
 
-Kode ini bekerja menggunakan soket UDP dalam bahasa python. Dengan menerapkan konsep one-to-many yang berarti 1 Server bisa melayani banyak client dalam waktu yang bersamaan ketika program dijalankan.
+Kode ini beroperasi menggunakan soket UDP dalam bahasa Python, menerapkan konfigurasi one-to-many yang memungkinkan satu server untuk menangani banyak klien secara bersamaan.
 
-Berikut Penjelasan kode dari server dan client
+Berikut adalah rincian dari kode server dan klien:
 
 `server.py`
 
@@ -72,33 +67,21 @@ while True:
 server_socket.close()
 ```
 
-**Output :**
+**Output:**
 
-![alt text](image/server.png)
+![server output](image/server.png)
 
-**Penjelasan :**
+**Penjelasan:**
 
-Berikut adalah penjelasan dari kode tersebut:
+Kode di atas melibatkan pembuatan server UDP yang dapat mengirim nama-nama warna acak kepada beberapa klien atas permintaan mereka. Server menggunakan modul standar seperti `socket` untuk komunikasi jaringan, dan `random` untuk menghasilkan warna acak.
 
-1. Kode mengimpor modul `socket` untuk membuat socket jaringan, modul `random` untuk mendapatkan warna secara acak, dan modul `time` untuk melakukan operasi yang terkait dengan waktu (meskipun tidak digunakan dalam kode ini).
+- Dimulai dengan mendefinisikan fungsi `generate_random_color()` yang secara acak memilih warna dari daftar yang telah ditentukan.
+- IP server dan port diatur, dengan server mengikat ke pengaturan ini.
+- Server terus menerus mendengarkan pesan masuk. Setelah menerima pesan "request_color" dari klien, server mengirim kembali warna yang dipilih secara acak.
+- Mengelola koneksi klien baru dengan menyimpan alamat mereka dan mengenali saat klien mengirim permintaan warna.
+- Saat terjadi gangguan, server dengan aman menutup koneksi.
 
-2. Fungsi `generate_random_color()` mendefinisikan daftar warna-warna yang tersedia, dan kemudian memilih salah satu warna secara acak dari daftar tersebut menggunakan `random.choice()`.
-
-3. Variabel `server_ip` dan `server_port` menyimpan alamat IP dan nomor port server. Dalam kode ini, alamat IP ditetapkan menjadi `"127.0.0.1"` (localhost), dan nomor port ditetapkan menjadi `12345`.
-
-4. Sebuah socket UDP dibuat dengan menggunakan `socket.socket(socket.AF_INET, socket.SOCK_DGRAM)`, dan kemudian terikat ke alamat IP dan nomor port server dengan menggunakan `server_socket.bind((server_ip, server_port))`.
-
-5. Kode mencetak pesan yang menunjukkan bahwa server sedang berjalan di alamat IP dan nomor port yang telah ditetapkan.
-
-6. Set `connected_clients` digunakan untuk menyimpan daftar alamat klien yang terhubung ke server.
-
-7. Dalam loop `while True`, server menunggu permintaan dari klien. Jika permintaan diterima dan berisi pesan "request_color", server akan memanggil fungsi `generate_random_color()` untuk mendapatkan warna secara acak, dan mengirimkan warna tersebut kembali ke klien.
-
-8. Jika klien baru terhubung ke server, alamat klien akan ditambahkan ke set `connected_clients`, dan pesan akan dicetak untuk menunjukkan bahwa klien telah terhubung.
-
-9. Jika terjadi interupsi keyboard (`KeyboardInterrupt`), loop akan berhenti, dan server akan menutup socket.
-
-Secara keseluruhan, kode ini membuat sebuah server UDP yang dapat mengirimkan warna secara acak kepada klien yang terhubung ketika klien mengirim permintaan "request_color". Server ini berjalan di alamat IP `127.0.0.1` (localhost) dan nomor port `12345`.
+Server ini dapat melayani beberapa klien secara bersamaan dengan mengelola alamat mereka dan melayani warna unik atas permintaan.
 
 <br>
 
@@ -181,46 +164,33 @@ while True:
         break
 
 client_socket.close()
+
 ```
 
-**Output :**
+**Output:**
 
-![alt text](image/client.png)
+![client output](image/client.png)
 
-**Penjelasan :**
+**Penjelasan:**
 
-Berikut adalah penjelasan dari kode tersebut:
+Kode klien terhubung ke server dan meminta warna, yang kemudian diterjemahkan dari Bahasa Inggris ke Bahasa Indonesia dalam periode waktu yang ditentukan. Fitur utama termasuk:
 
-1. Kode mengimpor modul `socket` untuk membuat socket jaringan, modul `time` untuk melakukan operasi yang terkait dengan waktu, dan modul `threading` untuk membuat thread baru.
+- Menggunakan soket untuk komunikasi jaringan dan threading untuk menangani input pengguna dalam waktu tertentu.
+- Meminta pengguna untuk menerjemahkan warna yang diterima dan memverifikasi respons mereka terhadap terjemahan yang benar yang disimpan dalam kamus.
+- Memberikan umpan balik berdasarkan keakuratan respons pengguna, dengan sistem untuk menangani respons yang tidak tepat atau jawaban yang salah secara efektif.
+- Mengelola interaksi pengguna dan memelihara loop untuk terus meminta dan menerjemahkan warna.
 
-2. Fungsi `english_to_indonesian_color(english_color)` memetakan warna dalam bahasa Inggris ke dalam bahasa Indonesia menggunakan dictionary `color_mapping`. Jika warna dalam bahasa Inggris tidak ditemukan dalam dictionary, maka akan dikembalikan "tidak dikenali".
+Setup klien ini memastikan partisipasi interaktif dan
 
-3. Variabel `server_ip` dan `server_port` menyimpan alamat IP dan nomor port server (sama dengan kode server sebelumnya).
+respons yang tepat waktu terhadap komunikasi server.
 
-4. Sebuah socket UDP dibuat dengan menggunakan `socket.socket(socket.AF_INET, socket.SOCK_DGRAM)` untuk klien.
-
-5. Fungsi `input_with_timeout(prompt, timeout)` digunakan untuk membaca input dari pengguna dengan batasan waktu `timeout` detik. Fungsi ini membuat sebuah thread baru yang menjalankan fungsi `input_thread()` untuk membaca input dari pengguna. Jika pengguna tidak merespons dalam waktu `timeout` detik, maka akan mencetak pesan dan mengembalikan `None`.
-
-6. Dalam loop `while True`, klien mengirim permintaan "request_color" ke server dan menunggu balasan berupa warna dalam bahasa Inggris.
-
-7. Setelah menerima warna dalam bahasa Inggris dari server, klien mencetak warna tersebut dan meminta pengguna untuk menerjemahkan warna tersebut ke dalam bahasa Indonesia menggunakan fungsi `input_with_timeout()` dengan waktu tunggu 5 detik.
-
-8. Jawaban pengguna dibandingkan dengan terjemahan warna dalam bahasa Indonesia menggunakan fungsi `english_to_indonesian_color()`. Jika jawaban benar, maka akan dicetak pesan "Jawaban benar! Nilai feedback: 100", jika salah atau waktu habis, maka akan dicetak pesan "Jawaban salah. Nilai feedback: 0" atau "Waktu habis. Nilai feedback: 0".
-
-9. Setelah memberikan feedback, klien akan menunggu selama 10 detik sebelum mengirim permintaan warna baru ke server.
-
-10. Jika terjadi interupsi keyboard (`KeyboardInterrupt`), loop akan berhenti, dan klien akan menutup socket.
-
-Secara keseluruhan, kode ini membuat sebuah klien UDP yang terhubung ke server warna dari kode sebelumnya. Klien akan meminta warna dalam bahasa Inggris dari server, dan meminta pengguna untuk menerjemahkan warna tersebut ke dalam bahasa Indonesia dengan batasan waktu 5 detik. Jika pengguna menjawab dengan benar, maka akan diberikan nilai feedback 100, jika salah atau waktu habis, maka nilai feedback adalah 0. Setelah memberikan feedback, klien akan menunggu 10 detik sebelum meminta warna baru dari server.
-
-<br>
-<hr>
+## <br>
 
 ## Penggunaan
 
-### Menggunakan 1 Server dan 1 Client
+### Menjalankan Satu Server dan Klien
 
-Untuk menggunakan cara ini harus menjalankan 2 file yaitu `server.py` dan `client.py` (salah satu file client)
+Untuk menggunakan setup ini, jalankan kedua file `server.py` dan satu instance `client.py`:
 
 ```
 > python server.py
@@ -228,7 +198,7 @@ Untuk menggunakan cara ini harus menjalankan 2 file yaitu `server.py` dan `clien
 
 <br>
 
-![alt text](image/server.png)
+![server output](image/server.png)
 
 ```
 > python client.py
@@ -236,36 +206,30 @@ Untuk menggunakan cara ini harus menjalankan 2 file yaitu `server.py` dan `clien
 
 <br>
 
-![alt text](image/client.png)
+![client output](image/client.png)
 
-> Keterangan
+> Catatan:
 >
-> - Jika Menebak warna dengan Benar maka akan mendapatkan nilai feedback 100
-> - Jika menebak warna dengan Salah maka akan mendapatkan nilai feedback 0
-> - Jika tidak menginputkan apapun maka akan muncul anda tidak menjawab dalam 5 detik dan tekan enter untuk melanjutkan
+> - Tebakan yang benar mendapatkan skor umpan balik 100.
+> - Tebakan yang salah mendapatkan skor umpan balik 0.
+> - Jika tidak ada input yang diberikan dalam waktu yang ditentukan, pesan timeout akan muncul, meminta Anda untuk menekan Enter untuk melanjutkan.
 >
-> Server akan memberikan warna baru kepada client setiap 10 detik jika menjawab dengan benar/salah/tidak menjawab
+> Server mengirim warna baru kepada klien setiap 10 detik, terlepas dari kebenaran atau waktu respons.
 
-### Menggunakan 1 Server dan Banyak Client
+### Menjalankan Satu Server dengan Banyak Klien
 
-Untuk menggunakan cara ini cukup menjalankan script `run.py`
+Untuk banyak klien, jalankan skrip `run.py`:
 
 ```
 > python run.py
 ```
 
-![alt text](image/run.png)
+![output klien banyak](image/run.png)
 
-> Keterangan
+> Catatan:
 >
-> - Jika Menebak warna dengan Benar maka akan mendapatkan nilai feedback 100
-> - Jika menebak warna dengan Salah maka akan mendapatkan nilai feedback 0
-> - Jika tidak menginputkan apapun maka akan muncul anda tidak menjawab dalam 5 detik dan tekan enter untuk melanjutkan
+> - Jawaban yang benar diberi skor umpan balik 100.
+> - Jawaban yang salah diberi skor umpan balik 0.
+> - Jika tidak ada input yang diberikan dalam batas waktu 5 detik, pesan timeout muncul yang meminta Anda untuk melanjutkan.
 >
-> Server akan memberikan warna baru kepada client setiap 10 detik jika menjawab dengan benar/salah/tidak menjawab
-
-<hr>
-
-Sekian penjelasan dari saya😁, jangan lupa meninggalkan jejak dengan klik `star`⚡di repositori ini.
-
-<h3 align="left">Thank you and have a great day ❤</h3>
+> Server mengirim warna baru kepada setiap klien setiap 10 detik, terlepas dari respons.
