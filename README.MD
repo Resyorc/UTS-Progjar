@@ -1,6 +1,8 @@
+```
 Nama: Ferry Oktariansyah
 NIM: 1203220006
 Kelas: IF-02-01
+```
 
 ---
 
